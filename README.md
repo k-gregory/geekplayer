@@ -17,4 +17,4 @@
 * Social networking services integration
 * Align sound levels(between all songs)
 
-![PlayerIcon1.png](https://bitbucket.org/repo/Rp7dLp/images/2971273178-PlayerIcon1.png)
+![PlayerIcon1.png](https://bitbucket.org/repo/Rp7dLp/images/3707346043-PlayerIcon1.png)
