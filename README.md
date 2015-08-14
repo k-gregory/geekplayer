@@ -1,5 +1,6 @@
 # Geek Player #
 
+This is a new player with a lot of functionality for Android
 
 ### TODO ###
 
