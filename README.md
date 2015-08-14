@@ -1,8 +1,6 @@
 # Geek Player #
 
 
-![PlayerIcon1.png](https://bitbucket.org/repo/Rp7dLp/images/2971273178-PlayerIcon1.png)
-
 ### TODO ###
 
 * Last.fm scrobbling
@@ -18,3 +16,5 @@
 * Support different skins 
 * Social networking services integration
 * Align sound levels(between all songs)
+
+![PlayerIcon1.png](https://bitbucket.org/repo/Rp7dLp/images/2971273178-PlayerIcon1.png)
