@@ -4,6 +4,7 @@
 ![PlayerIcon1.png](https://bitbucket.org/repo/Rp7dLp/images/2971273178-PlayerIcon1.png)
 
 ### TODO ###
+
 *Last.fm scrobbling
 *Additional tags or album arts lookup in the net
 *Widget
