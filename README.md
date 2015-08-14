@@ -7,6 +7,7 @@ This is a new player with a lot of functionality for Android
 * Last.fm scrobbling
 * Additional tags or album arts lookup in the net
 * Widget
+* Equalizer
 * User-defined boolean tags. Also, create set of standard additional tags
 * Support multiple playlists
 * Playlists  can be updated when new song is added to DB
@@ -17,5 +18,6 @@ This is a new player with a lot of functionality for Android
 * Support different skins 
 * Social networking services integration
 * Align sound levels(between all songs)
+
 
 ![experimental.png](https://bitbucket.org/repo/Rp7dLp/images/3118959656-experimental.png)
