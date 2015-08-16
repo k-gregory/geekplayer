@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">GeekPlayer</string>
+    <string name="album_name_repr">Album:</string>
+    <string name="artist_name_repr">Artist:</string>
+    <string name="acc_album_art_repr">Album art</string>
     <string-array name="playerMenu">
         <item>Player</item>
         <item>Playlist</item>
