@@ -19,5 +19,4 @@ This is a new player with a lot of functionality for Android
 * Social networking services integration
 * Align sound levels(between all songs)
 
-
-![experimental.png](https://bitbucket.org/repo/Rp7dLp/images/3118959656-experimental.png)
+![onlypic_min.jpg](https://bitbucket.org/repo/Rp7dLp/images/1204164678-onlypic_min.jpg)
