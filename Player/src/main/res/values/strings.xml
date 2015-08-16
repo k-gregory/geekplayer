@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GeekPlayer</string>
+    <string-array name="playerMenu">
+        <item>Player</item>
+        <item>Playlist</item>
+        <item>Music collection</item>
+        <item>Settings</item>
+    </string-array>
+</resources>
