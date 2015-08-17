@@ -5,9 +5,11 @@ import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -26,38 +28,29 @@ public class PlayFragment extends Fragment {
         player.start();
     }
 
-    private String[] getAudioList() {
-        final Cursor mCursor = getActivity().getContentResolver().query(
+    private String getAudioList() {
+        final Cursor cursor = getActivity().getContentResolver().query(
                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                new String[]{MediaStore.Audio.Media.DISPLAY_NAME, MediaStore.Audio.Media.DATA}, null, null,
-                "LOWER(" + MediaStore.Audio.Media.TITLE + ") ASC");
-
-        int count = mCursor.getCount();
-
-        String[] songs = new String[count];
-        String[] mAudioPath = new String[count];
-        int i = 0;
-        if (mCursor.moveToFirst()) {
-            do {
-                songs[i] = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DISPLAY_NAME));
-                mAudioPath[i] = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA));
-                i++;
-            } while (mCursor.moveToNext());
-        }
-
-        mCursor.close();
-
-        return songs;
+                new String[]{MediaStore.Audio.Media.DATA},
+                null,
+                null,
+                null);
+        cursor.moveToFirst();
+        String res = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA));
+        cursor.close();
+        return res;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        View v = inflater.inflate(R.layout.fragment_player,container,false);
         player = new MediaPlayer();
+        Log.d("MY_APP",getAudioList());
         try {
-            playTrack(getAudioList()[0]);
+            playTrack(getAudioList());
         } catch (IOException e) {
-
+            Log.e("MY_APP",e.getMessage());
         }
-        return inflater.inflate(R.layout.fragment_player,container,false);
+        return v;
     }
 }
