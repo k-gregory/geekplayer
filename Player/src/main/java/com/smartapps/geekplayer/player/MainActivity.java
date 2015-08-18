@@ -26,6 +26,7 @@ public class MainActivity extends Activity {
     private String[] menuEntries;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
+    private PlayFragment fragment = new PlayFragment();
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -39,7 +40,6 @@ public class MainActivity extends Activity {
     }
 
     private void selectItem(int position){
-        Fragment fragment = new PlayFragment();
         FragmentManager manager = getFragmentManager();
         manager.beginTransaction()
                 .replace(R.id.content_frame, fragment)

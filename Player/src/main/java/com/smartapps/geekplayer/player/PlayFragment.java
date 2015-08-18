@@ -2,6 +2,7 @@ package com.smartapps.geekplayer.player;
 
 import android.app.Fragment;
 import android.database.Cursor;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -23,16 +24,18 @@ public class PlayFragment extends Fragment {
 
     public void playTrack(String path) throws IOException{
         player.reset();
+        player.setAudioStreamType(AudioManager.STREAM_MUSIC);
         player.setDataSource(path);
         player.prepare();
+        player.setLooping(false);
         player.start();
     }
 
     private String getAudioList() {
         final Cursor cursor = getActivity().getContentResolver().query(
                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                new String[]{MediaStore.Audio.Media.DATA},
-                null,
+                new String[]{MediaStore.Audio.Media.DATA,MediaStore.Audio.Media.ARTIST},
+                null, //MediaStore.Audio.Media.ARTIST+" = 'Blood Sister'", //FIXME This shall newer be committed
                 null,
                 null);
         cursor.moveToFirst();
@@ -45,11 +48,10 @@ public class PlayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_player,container,false);
         player = new MediaPlayer();
-        Log.d("MY_APP",getAudioList());
-        try {
-            playTrack(getAudioList());
+        try{
+        playTrack(getAudioList());
         } catch (IOException e) {
-            Log.e("MY_APP",e.getMessage());
+            Log.e("PLAY","Can't play,lol");
         }
         return v;
     }
