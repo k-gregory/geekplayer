@@ -10,15 +10,15 @@ import android.os.IBinder;
 /**
  * Created by gregory on 8/17/15.
  */
+
 public class PlaybackService extends Service {
     private MediaPlayer player;
     private IBinder m_binder;
+    private Playlist playlist;
 
     public void setPlaylist(Playlist playlist) {
         this.playlist = playlist;
     }
-
-    private Playlist playlist;
 
     public void play(){
 
