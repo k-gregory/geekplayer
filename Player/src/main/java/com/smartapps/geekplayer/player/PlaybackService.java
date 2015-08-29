@@ -16,6 +16,7 @@ import java.io.IOException;
  */
 
 class PlaybackController implements MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
+    private final String TAG = "PlaybackController";
 
     private PlaybackService playbackService;
 
@@ -45,12 +46,13 @@ class PlaybackController implements MediaPlayer.OnCompletionListener, MediaPlaye
 
     @Override
     public boolean onError(MediaPlayer mp,int what,int extra){
-        Log.e("PlaybackService","error in pbs!");
+        Log.e(TAG,"error in pbs!");
         return false;
     }
 }
 
 public class PlaybackService extends Service {
+    private final String TAG="PlaybackService";
     private MediaPlayer player;
     private IBinder m_binder;
 
@@ -87,7 +89,7 @@ public class PlaybackService extends Service {
         try {
             startPlayingTrack(playlist.getCurrentTrack());
         } catch (IOException e) {
-            Log.e("PlaybackService",e.getMessage());
+            Log.e(TAG,e.getMessage());
         }
     }
 
