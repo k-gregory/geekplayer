@@ -53,6 +53,7 @@ class PlaybackController implements MediaPlayer.OnCompletionListener, MediaPlaye
 
 public class PlaybackService extends Service {
     private final String TAG="PlaybackService";
+    
     private MediaPlayer player;
     private IBinder m_binder;
 
