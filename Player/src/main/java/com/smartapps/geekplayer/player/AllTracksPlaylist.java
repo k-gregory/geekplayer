@@ -41,11 +41,11 @@ public class AllTracksPlaylist implements ListablePlaylist {
             int index = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
             tracks = new LinkedList<>();
             tracks.add(cursor.getString(index));
-            iter = tracks.listIterator();
-            setCurrentTrack(iter.next());
             while(cursor.moveToNext()){
                 tracks.add(cursor.getString(index));
             }
+            iter = tracks.listIterator();
+            setCurrentTrack(iter.next());
         }
         else tracks = null;
         cursor.close();
