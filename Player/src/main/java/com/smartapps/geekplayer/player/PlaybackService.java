@@ -15,16 +15,56 @@ import java.io.IOException;
  * Created by gregory on 8/17/15.
  */
 
+class PlaybackController implements MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
+
+    private PlaybackService playbackService;
+
+    public PlaybackController(PlaybackService playbackService){
+        this.playbackService = playbackService;
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mediaPlayer) {
+        Playlist playlist = playbackService.getPlaylist();
+
+        if(playlist.nextTrack())
+            try {
+                mediaPlayer.reset();
+                mediaPlayer.setDataSource(playbackService.getPlaylist().getCurrentTrack());
+                mediaPlayer.prepareAsync();
+            } catch (IOException e) {
+                throw new Error("Can't open next song!");
+            }
+
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mediaPlayer) {
+        mediaPlayer.start();
+    }
+
+    @Override
+    public boolean onError(MediaPlayer mp,int what,int extra){
+        Log.e("PlaybackService","error in pbs!");
+        return false;
+    }
+}
+
 public class PlaybackService extends Service {
     private MediaPlayer player;
     private IBinder m_binder;
+
+    public Playlist getPlaylist() {
+        return playlist;
+    }
+
     private Playlist playlist;
 
     @Override
     public void onCreate(){
         m_binder = new PlaybackServiceBinder();
         player = new MediaPlayer();
-        PlaybackController controller = new PlaybackController();
+        PlaybackController controller = new PlaybackController(this);
         player.setOnPreparedListener(controller);
         player.setOnCompletionListener(controller);
         player.setOnErrorListener(controller);
@@ -35,25 +75,6 @@ public class PlaybackService extends Service {
         this.playlist = playlist;
     }
 
-
-    class PlaybackController implements MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
-
-        @Override
-        public void onCompletion(MediaPlayer mediaPlayer) {
-
-        }
-
-        @Override
-        public void onPrepared(MediaPlayer mediaPlayer) {
-            mediaPlayer.start();
-        }
-
-        @Override
-        public boolean onError(MediaPlayer mp,int what,int extra){
-            Log.e("PlaybackService","error in pbs!");
-            return false;
-        }
-    }
 
     private void startPlayingTrack(String trackURI) throws IOException{
         player.reset();
