@@ -30,11 +30,9 @@ class PlaybackController implements MediaPlayer.OnCompletionListener, MediaPlaye
 
         if(playlist.nextTrack())
             try {
-                mediaPlayer.reset();
-                mediaPlayer.setDataSource(playbackService.getPlaylist().getCurrentTrack());
-                mediaPlayer.prepareAsync();
+                playTrack(mediaPlayer, playlist.getCurrentTrack());
             } catch (IOException e) {
-                throw new Error("Can't open next song!");
+                throw new Error("Can't play next track!");
             }
 
     }
@@ -46,15 +44,23 @@ class PlaybackController implements MediaPlayer.OnCompletionListener, MediaPlaye
 
     @Override
     public boolean onError(MediaPlayer mp,int what,int extra){
-        Log.e(TAG,"error in pbs!");
+        Log.e(TAG, "error in pbs!"+what+" "+extra);
         return false;
+    }
+
+    public void playTrack(MediaPlayer player, String dataSource) throws IOException{
+        player.reset();
+        player.setDataSource(dataSource);
+        player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        player.prepareAsync();
     }
 }
 
 public class PlaybackService extends Service {
     private final String TAG="PlaybackService";
-    
+
     private MediaPlayer player;
+    private PlaybackController controller;
     private IBinder m_binder;
 
     public Playlist getPlaylist() {
@@ -67,7 +73,7 @@ public class PlaybackService extends Service {
     public void onCreate(){
         m_binder = new PlaybackServiceBinder();
         player = new MediaPlayer();
-        PlaybackController controller = new PlaybackController(this);
+        controller = new PlaybackController(this);
         player.setOnPreparedListener(controller);
         player.setOnCompletionListener(controller);
         player.setOnErrorListener(controller);
@@ -78,17 +84,9 @@ public class PlaybackService extends Service {
         this.playlist = playlist;
     }
 
-
-    private void startPlayingTrack(String trackURI) throws IOException{
-        player.reset();
-        player.setDataSource(trackURI);
-        player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        player.prepareAsync();
-    }
-
     public void play(){
         try {
-            startPlayingTrack(playlist.getCurrentTrack());
+            controller.playTrack(player,playlist.getCurrentTrack());
         } catch (IOException e) {
             Log.e(TAG,e.getMessage());
         }
